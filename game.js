@@ -23,6 +23,8 @@ $(document).ready(function(){
     // Game Constants
     var gravity = 0.35;
     var friction = 0.9;
+    
+    hammerBind('.button.jump','heroJump'); //main toggle hamburger nav
 
     // Game Controller
     if(touchable) {
@@ -36,8 +38,11 @@ $(document).ready(function(){
     function onTouchStart(e) {
         //touch
         //jump
-        touches = e.touches;
-        heroJump();
+        touches = e.touches.target;
+        var t = $(touches);
+        if( t.hasClass('jump') ){
+            heroJump();
+        }
     }
 
     function onTouchMove(e) {
@@ -71,6 +76,28 @@ $(document).ready(function(){
         heroReady = true;
     };
     heroImage.src = "images/sprite-hero.png";
+    
+    // Boss image
+    var bossReady = false;
+    var bossImage = new Image();
+    bossImage.onload = function () {
+        bossReady = true;
+    };
+    bossImage.src = "images/sprite-boss.png";
+        // Boss image
+        var bossReady2 = false;
+        var bossImage2 = new Image();
+        bossImage2.onload = function () {
+            bossReady2 = true;
+        };
+        bossImage2.src = "images/sprite-boss2.png";
+        // Boss image
+        var bossReady3 = false;
+        var bossImage3 = new Image();
+        bossImage3.onload = function () {
+            bossReady3 = true;
+        };
+        bossImage3.src = "images/sprite-boss3.png";
 
     // Portal image
     var portalReady = false;
@@ -91,6 +118,21 @@ $(document).ready(function(){
         vely: 0,
         x: 0,
         y: 0,
+        jumping : false,
+        grounded : false,
+        goingup : false
+    };
+    
+    //BOSS
+    var boss = {
+        speed: 10, // movement in pixels per second
+        width: 200,
+        height: 250,
+        velx: 0,
+        vely: 0,
+        x: 0,
+        y: 0,
+        force : 3.5,
         jumping : false,
         grounded : false,
         goingup : false
@@ -175,6 +217,14 @@ $(document).ready(function(){
         hero.vely = 0;
         hero.grounded = false;
         hero.goingup = false;
+        
+        boss.x = 150;
+        boss.y = 200;
+        boss.velx = 1;
+        boss.vely = 0;
+        boss.grounded = false;
+        boss.goingup = false;
+        
         towers = new Array();
         /**
             every level is 500 x 700
@@ -290,9 +340,26 @@ $(document).ready(function(){
         }else{
             hero.goingup = true;
         }
+        
+        //move the boss
+        boss.y += boss.speed * boss.force;
+        if(boss.y > canvas.height - boss.height){
+            boss.force = -1;
+        }
+        if(boss.y < 0){
+            boss.force = 1;
+        }
+        if(boss.x > canvas.width - boss.width){
+            boss.velx = -1;
+        }
+        if(boss.x < 0){
+            boss.velx = 1;
+        }
+        boss.x += boss.velx;
 
         //move the portal
         portal.x += portal.speed * portal.force;
+        
 
         //change the portal{
         if(portal.x > canvas.width - portal.width){
@@ -311,6 +378,15 @@ $(document).ready(function(){
         ) {
             console.log('next level!');
             ++level;
+            reset();
+        }
+        
+        //BOSS
+        if (
+            hero.x + hero.width >= boss.x
+            && boss.x + boss.width >= hero.x
+            && hero.y <= boss.y + boss.height
+        ) {
             reset();
         }
 
@@ -429,6 +505,7 @@ $(document).ready(function(){
         return colDir;
     }
 
+
     // Draw everything
     var render = function () {
         ctx.clearRect(0,0,canvas.width, canvas.height);
@@ -439,6 +516,30 @@ $(document).ready(function(){
             ctx.fillRect(0, 0, canvas.width, canvas.height); // context.fillRect(x, y, width, height);
         }
 
+        //context.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh)
+        /*
+            http://www.williammalone.com/articles/create-html5-canvas-javascript-sprite-animation/
+            img	Source image object	Sprite sheet
+            sx	Source x	Frame index times frame width
+            sy	Source y	0
+            sw	Source width	Frame width
+            sh	Source height	Frame height
+            dx	Destination x	0
+            dy	Destination y	0
+            dw	Destination width	Frame width
+            dh	Destination height	Frame height
+        */
+
+        if (bossReady) {
+            if( boss.y > (canvas.height - boss.height) - 30 ){
+                ctx.drawImage(bossImage3, boss.x, boss.y);
+            }else if(boss.force < 0){
+                ctx.drawImage(bossImage, boss.x, boss.y);
+            }else{
+                ctx.drawImage(bossImage2, boss.x, boss.y);
+            }
+        }
+        
         if (heroReady) {
             ctx.drawImage(heroImage, hero.x, hero.y);
         }
@@ -540,6 +641,21 @@ $(document).ready(function(){
         }
     }
     */
+    
+    //initiate hammer tap on cards
+    //HAMMER BIND
+    function hammerBind(selector,functionName){
+        $(selector).each(function(){
+            var mc = new Hammer(this);
+            var clicked = this;
+            var elem = $(this);
+            mc.on("tap", function(e) {
+                if(e){ e.preventDefault(); }
+                //window[functionName](elem,e);
+                return;
+            });
+        });
+    }
 
     //JS game resize for full screen
     function resizeGame() {
