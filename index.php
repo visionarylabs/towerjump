@@ -1,4 +1,5 @@
 <?php
+    /**
 	// http://www.lostdecadegames.com/how-to-make-a-simple-html5-canvas-game/
 	// http://www.html5rocks.com/en/tutorials/casestudies/onslaught/#toc-the-game-loop
 	// https://github.com/austinhallock/html5-virtual-game-controller
@@ -8,6 +9,7 @@
 	// http://www.nathalielawhead.com/candybox/html5-game-tutorial-making-a-platformer-part-1
 	// http://blog.sklambert.com/html5-game-tutorial-module-pattern/
 	// http://blog.sklambert.com/galaxian-html5-game/
+	**/
 ?>
 <html>
 	<head>
@@ -17,9 +19,9 @@
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<link rel="stylesheet" type="text/css" href="game.css?t=3" media="all" />
-		<script type='text/javascript' src='/scripts/jquery.js'></script>
-		<script src="tools/hammer.min.js"></script>
-		<script src="tools/hammer-time.min.js"></script>
+		<script type='text/javascript' src='/scripts/tools/jquery.js'></script>
+		<script src="/scripts/tools/hammer.min.js"></script>
+		<script src="/scripts/tools/hammer-time.min.js"></script>
 		<script src="game.js?t=4"></script>
 	</head>
 	<body>

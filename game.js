@@ -20,9 +20,12 @@ $(document).ready(function(){
     canvas.height = 700;
     canvas.id = 'game-canvas';
 
+    
     // Game Constants
     var gravity = 0.35;
     var friction = 0.9;
+    var isBoss = false;
+    
     
     hammerBind('.button.jump','heroJump'); //main toggle hamburger nav
 
@@ -83,6 +86,7 @@ $(document).ready(function(){
     bossImage.onload = function () {
         bossReady = true;
     };
+    
     bossImage.src = "images/sprite-boss.png";
         // Boss image
         var bossReady2 = false;
@@ -342,20 +346,22 @@ $(document).ready(function(){
         }
         
         //move the boss
-        boss.y += boss.speed * boss.force;
-        if(boss.y > canvas.height - boss.height){
-            boss.force = -1;
+        if(isBoss){
+            boss.y += boss.speed * boss.force;
+            if(boss.y > canvas.height - boss.height){
+                boss.force = -1;
+            }
+            if(boss.y < 0){
+                boss.force = 1;
+            }
+            if(boss.x > canvas.width - boss.width){
+                boss.velx = -1;
+            }
+            if(boss.x < 0){
+                boss.velx = 1;
+            }
+            boss.x += boss.velx;
         }
-        if(boss.y < 0){
-            boss.force = 1;
-        }
-        if(boss.x > canvas.width - boss.width){
-            boss.velx = -1;
-        }
-        if(boss.x < 0){
-            boss.velx = 1;
-        }
-        boss.x += boss.velx;
 
         //move the portal
         portal.x += portal.speed * portal.force;
@@ -382,12 +388,14 @@ $(document).ready(function(){
         }
         
         //BOSS
-        if (
-            hero.x + hero.width >= boss.x
-            && boss.x + boss.width >= hero.x
-            && hero.y <= boss.y + boss.height
-        ) {
-            reset();
+        if(isBoss){
+            if (
+                hero.x + hero.width >= boss.x
+                && boss.x + boss.width >= hero.x
+                && hero.y <= boss.y + boss.height
+            ) {
+                reset();
+            }
         }
 
         // stop hero on screen edge
@@ -511,9 +519,9 @@ $(document).ready(function(){
         ctx.clearRect(0,0,canvas.width, canvas.height);
         if (bgReady) {
             //ctx.drawImage(bgImage, 0, 0);
-            var ptrn = ctx.createPattern(bgImage, 'repeat'); // Create a pattern with this image, and set it to "repeat".
-            ctx.fillStyle = ptrn;
-            ctx.fillRect(0, 0, canvas.width, canvas.height); // context.fillRect(x, y, width, height);
+            //var ptrn = ctx.createPattern(bgImage, 'repeat'); // Create a pattern with this image, and set it to "repeat".
+            //ctx.fillStyle = ptrn;
+            //ctx.fillRect(0, 0, canvas.width, canvas.height); // context.fillRect(x, y, width, height);
         }
 
         //context.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh)
@@ -530,7 +538,7 @@ $(document).ready(function(){
             dh	Destination height	Frame height
         */
 
-        if (bossReady) {
+        if (isBoss && bossReady) {
             if( boss.y > (canvas.height - boss.height) - 30 ){
                 ctx.drawImage(bossImage3, boss.x, boss.y);
             }else if(boss.force < 0){
