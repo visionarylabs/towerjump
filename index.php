@@ -1,14 +1,6 @@
-<?php
-	// http://www.lostdecadegames.com/how-to-make-a-simple-html5-canvas-game/
-	// http://www.html5rocks.com/en/tutorials/casestudies/onslaught/#toc-the-game-loop
-	// https://github.com/austinhallock/html5-virtual-game-controller
-	// http://html5gameengine.com/
-	// http://www.html5rocks.com/en/tutorials/casestudies/gopherwoord-studios-resizing-html5-games/
-	// http://www.smashingmagazine.com/2012/10/19/design-your-own-mobile-game/
-	// http://www.nathalielawhead.com/candybox/html5-game-tutorial-making-a-platformer-part-1
-	// http://blog.sklambert.com/html5-game-tutorial-module-pattern/
-	// http://blog.sklambert.com/galaxian-html5-game/
-?>
+<?php /* 
+    TOWER JUMP
+*/ ?>
 <html>
 	<head>
 		<title>Tower Jump!</title>
@@ -20,7 +12,8 @@
 		<script type='text/javascript' src='/scripts/tools/jquery.js'></script>
 		<script src="tools/hammer.min.js"></script>
 		<script src="tools/hammer-time.min.js"></script>
-		<script src="game.js?t=4"></script>
+		<script src="levels.js?t=5"></script>
+		<script src="game.js?t=5"></script>
 	</head>
 	<body>
 		<div class="game-area" id="game-area">

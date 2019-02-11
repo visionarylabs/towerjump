@@ -6,7 +6,59 @@
     https://docs.google.com/document/d/1lA0bT0W_RHqEa8iUSYb6rAPabvGB_kLG1PlRA23GdVM
 **/
 
+/** GLOBAL VARS **/
+// Game Constants
+var gravity = 0.35;
+var friction = 0.9;
+var isBoss = false;
+
+var level = 0;
+
+//towers
+var tower = function(width,height,x,y,type){
+    var width = width;
+    var height = height;
+    var x = x;
+    var y = y;
+    var type = type;
+    var falling = false;
+    var floating = false;
+    var trap = false;
+    var hoverRight = false;
+    var hoverLeft = false;
+    return{
+        width: width,
+        height: height,
+        x: x,
+        y: y,
+        type: type,
+        falling: falling,
+        floating: floating
+    }
+}
+var towers = new Array();
+
+var makeTower = function(width,height,x,y,type){
+    var temp = null;
+    if( type == 'trap' ){
+        var width2 = width / 2;
+        var type1 = 'trapLeft';
+        var type2 = 'trapRight';
+        var x1 = x;
+        var x2 = x + width2 + 2;
+        temp = tower(width2,height,x,y,type1);
+        towers.push(temp);
+        temp = tower(width2,height,x2,y,type2);
+        towers.push(temp);
+    }else{
+        temp = tower(width,height,x,y,type);
+        towers.push(temp);
+    }
+}
+
 var $ = jQuery.noConflict();
+
+/** RUN GAME **/
 $(document).ready(function(){
 
     /*create the canvas*/
@@ -19,13 +71,6 @@ $(document).ready(function(){
     canvas.width = 500;
     canvas.height = 700;
     canvas.id = 'game-canvas';
-
-    
-    // Game Constants
-    var gravity = 0.35;
-    var friction = 0.9;
-    var isBoss = false;
-    
     
     hammerBind('.button.jump','heroJump'); //main toggle hamburger nav
 
@@ -80,28 +125,53 @@ $(document).ready(function(){
     };
     heroImage.src = "images/sprite-hero.png";
     
-    // Boss image
-    var bossReady = false;
-    var bossImage = new Image();
-    bossImage.onload = function () {
-        bossReady = true;
-    };
-    
-    bossImage.src = "images/sprite-boss.png";
-        // Boss image
-        var bossReady2 = false;
-        var bossImage2 = new Image();
-        bossImage2.onload = function () {
-            bossReady2 = true;
+        // Boss image Up
+        var bossReady1r = false;
+        var bossImage1r = new Image();
+        bossImage1r.onload = function () {
+            bossReady1r = true;
         };
-        bossImage2.src = "images/sprite-boss2.png";
-        // Boss image
-        var bossReady3 = false;
-        var bossImage3 = new Image();
-        bossImage3.onload = function () {
-            bossReady3 = true;
+        bossImage1r.src = "images/sprite-boss-1-r.png";
+        
+        // Boss image Down
+        var bossReady2r = false;
+        var bossImage2r = new Image();
+        bossImage2r.onload = function () {
+            bossReady2r = true;
         };
-        bossImage3.src = "images/sprite-boss3.png";
+        bossImage2r.src = "images/sprite-boss-2-r.png";
+        
+        // Boss image Squash
+        var bossReady3r = false;
+        var bossImage3r = new Image();
+        bossImage3r.onload = function () {
+            bossReady3r = true;
+        };
+        bossImage3r.src = "images/sprite-boss-3-r.png";
+        
+            // Boss image Up
+            var bossReady1l = false;
+            var bossImage1l = new Image();
+            bossImage1l.onload = function () {
+                bossReady1l = true;
+            };
+            bossImage1l.src = "images/sprite-boss-1-l.png";
+            
+            // Boss image Down
+            var bossReady2l = false;
+            var bossImage2l = new Image();
+            bossImage2l.onload = function () {
+                bossReady2l = true;
+            };
+            bossImage2l.src = "images/sprite-boss-2-l.png";
+            
+            // Boss image Squash
+            var bossReady3l = false;
+            var bossImage3l = new Image();
+            bossImage3l.onload = function () {
+                bossReady3l = true;
+            };
+            bossImage3l.src = "images/sprite-boss-3-l.png";
 
     // Portal image
     var portalReady = false;
@@ -154,51 +224,10 @@ $(document).ready(function(){
         force: 3.5
     };
 
-    var level = 1;
+    level = 1;
 
     // Handle keyboard controls
     var keysDown = {};
-
-    //towers
-    var tower = function(width,height,x,y,type){
-        var width = width;
-        var height = height;
-        var x = x;
-        var y = y;
-        var type = type;
-        var falling = false;
-        var floating = false;
-        var trap = false;
-        var hoverRight = false;
-        var hoverLeft = false;
-        return{
-            width: width,
-            height: height,
-            x: x,
-            y: y,
-            type: type,
-            falling: falling,
-            floating: floating
-        }
-    }
-    var towers = new Array();
-    var makeTower = function(width,height,x,y,type){
-        var temp = null;
-        if( type == 'trap' ){
-            var width2 = width / 2;
-            var type1 = 'trapLeft';
-            var type2 = 'trapRight';
-            var x1 = x;
-            var x2 = x + width2 + 2;
-            temp = tower(width2,height,x,y,type1);
-            towers.push(temp);
-            temp = tower(width2,height,x2,y,type2);
-            towers.push(temp);
-        }else{
-            temp = tower(width,height,x,y,type);
-            towers.push(temp);
-        }
-    }
 
     //Key Listeners
 
@@ -235,55 +264,9 @@ $(document).ready(function(){
             test level
             width, height, x, y, type
         **/
-        if( level == 6 ){
-            //Make Level
-            makeTower(50,50,150,580,'trap');
-            makeTower(50,50,250,480,'hoverRight');
-            makeTower(100,20,100,650,'hoverRight');
-            makeTower(50,50,50,480,'hoverLeft');
-            makeTower(150,50,100,380,'hoverLeft');
-            makeTower(100,10,400,250,'trap');
-            makeTower(400,10,0,680,'floor'); /* wide, high, left, top, every level needs a floor */
-            makeTower(500,10,0,690,'lava'); /* lava pit */
-        }else if( level == 5 ){
-            //Make Level
-            makeTower(50,100,100,600,'');
-            makeTower(80,140,220,500,'fallable');
-            makeTower(100,50,370,400,'');
-            makeTower(40,50,450,300,'floating');
-            makeTower(400,10,0,680,'floor'); /* floor */
-            makeTower(500,10,0,690,'lava'); /* lava */
-        }else if( level == 4 ){
-            //Make Level
-            makeTower(50,100,200,600,'fallable');
-            makeTower(50,10,200,380,'floating');
-            makeTower(60,100,440,510,'');
-            makeTower(50,50,200,400,'lava');
-            makeTower(400,10,0,680,'floor'); /* wide, high, left, top, every level needs a floor */
-            makeTower(500,10,0,690,'lava'); /* lava pit */
-        }else if( level == 3 ){
-            //Make Level
-            makeTower(50,100,100,600,'fallable');
-            makeTower(80,140,220,500,'fallable');
-            makeTower(100,50,370,400,'fallable');
-            makeTower(40,50,450,300,'fallable');
-            makeTower(400,10,0,680,'floor'); /* floor */
-            makeTower(500,10,0,690,'lava'); /* lava */
-        }else if( level == 2 ){
-            //Make Level
-            makeTower(100,100,100,600,'fallable');
-            makeTower(50,50,250,500,'floating');
-            makeTower(130,50,100,350,'');
-            makeTower(130,50,300,350,'');
-            makeTower(300,20,100,250,'');
-            makeTower(50,50,0,320,'');
-            makeTower(400,10,0,680,'floor'); /* floor */
-            makeTower(500,10,0,690,'lava'); /* lava */
-        }else{
-            makeTower(80,40,220,600,'floating');
-            makeTower(400,10,0,680,'floor'); /* floor */
-            makeTower(500,10,0,690,'lava'); /* lava */
-        }
+        
+        makeLevels();
+        
     };
 
     var init = function(){
@@ -538,14 +521,28 @@ $(document).ready(function(){
             dh	Destination height	Frame height
         */
 
-        if (isBoss && bossReady) {
+        if (isBoss && bossReady1r) {
+            
             if( boss.y > (canvas.height - boss.height) - 30 ){
-                ctx.drawImage(bossImage3, boss.x, boss.y);
+                if( boss.velx > 0 ){
+                    ctx.drawImage(bossImage3r, boss.x, boss.y);
+                }else{
+                    ctx.drawImage(bossImage3l, boss.x, boss.y);
+                }
             }else if(boss.force < 0){
-                ctx.drawImage(bossImage, boss.x, boss.y);
+                if( boss.velx > 0 ){
+                    ctx.drawImage(bossImage1r, boss.x, boss.y);
+                }else{
+                    ctx.drawImage(bossImage1l, boss.x, boss.y);
+                }
             }else{
-                ctx.drawImage(bossImage2, boss.x, boss.y);
+                if( boss.velx > 0 ){
+                    ctx.drawImage(bossImage2r, boss.x, boss.y);
+                }else{
+                    ctx.drawImage(bossImage2l, boss.x, boss.y);
+                }
             }
+            
         }
         
         if (heroReady) {
@@ -595,7 +592,7 @@ $(document).ready(function(){
             }else if(towers[i].type == 'hoverRight'){
                 ctx.fillStyle = "rgb(0,0,0)";
             }else if(towers[i].type == 'hoverLeft'){
-                ctx.fillStyle = "rgb(255,255,255)";
+                ctx.fillStyle = "rgb(25,25,25)";
             }else{
                 ctx.fillStyle = "rgb(50,50,50)";
             }
