@@ -12,8 +12,8 @@
 		<script type='text/javascript' src='/scripts/tools/jquery.js'></script>
 		<script src="tools/hammer.min.js"></script>
 		<script src="tools/hammer-time.min.js"></script>
-		<script src="levels.js?t=5"></script>
-		<script src="game.js?t=5"></script>
+		<script src="levels.js?t=8"></script>
+		<script src="game.js?t=8"></script>
 	</head>
 	<body>
 		<div class="game-area" id="game-area">

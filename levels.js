@@ -5,13 +5,22 @@
 **/
 var makeLevels = function(){
     
-    if( level == 1 ){
+    if( level == 10 ){
         isBoss = true;
     }else{
         isBoss = false;
     }
     
-    if( level == 10 ){
+    if( level == 1 ){
+        //test lvel
+        console.log("Does this work?");
+        
+        
+        makeTower(100,300,100,300,'slope'); /* slope */
+        
+        makeTower(400,10,0,680,'floor'); /* floor */
+        makeTower(500,10,0,690,'lava'); /* lava */
+    }else if( level == 10 ){
         makeTower(80,40,50,250,'floating');
         makeTower(80,40,120,550,'floating');
         makeTower(80,40,220,600,'floating');

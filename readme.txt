@@ -7,6 +7,10 @@ http://dev.opalgames.com/games/towerjump
 ------------------------------------------------------------
 * needs to be on opal2.0 to work
 * start blog article on opalgames.com
+
+* TODO:
+* * Make a Slope
+
 ------------------------------------------------------------
 Reference Articles:
 	// http://www.lostdecadegames.com/how-to-make-a-simple-html5-canvas-game/

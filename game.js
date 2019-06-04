@@ -8,8 +8,8 @@
 
 /** GLOBAL VARS **/
 // Game Constants
-var gravity = 0.35;
-var friction = 0.9;
+var gravity = 0.35; //.35
+var friction = .8; //.9
 var isBoss = false;
 
 var level = 0;
@@ -50,6 +50,34 @@ var makeTower = function(width,height,x,y,type){
         towers.push(temp);
         temp = tower(width2,height,x2,y,type2);
         towers.push(temp);
+    }else if( type == 'slope' ){
+        
+        //temp
+        //temp = tower(width,height,x,y,type);
+        //towers.push(temp);
+        
+        var type = 'step';
+        var stepSize = 10;
+        var newWidth = stepSize;
+        var newHeight = stepSize;
+        var maxSteps = height / stepSize;
+        
+        if( width > height){
+            maxSteps = height / stepSize;
+            newWidth = width / maxSteps;
+        }else{
+            maxSteps = width / stepSize;
+            newHeight = height / maxSteps;
+        }
+        
+        y = y - newHeight;
+        
+        for(i=0; i < maxSteps; i++ ){
+            // make a tower step, step size , x , y , step
+            temp = tower( newWidth , newHeight , x + (newWidth * i) , y + height - (newHeight * i) , type );
+            towers.push(temp);
+        }
+        
     }else{
         temp = tower(width,height,x,y,type);
         towers.push(temp);
@@ -266,6 +294,8 @@ $(document).ready(function(){
         **/
         
         makeLevels();
+        
+        console.log(towers);
         
     };
 
@@ -579,6 +609,7 @@ $(document).ready(function(){
 
         //draw towers //tower color
         for(i=0; i < towers.length; i++){
+            
             if(towers[i].type == 'floor'){
                 ctx.fillStyle = "rgb(25,25,25)";
             }else if(towers[i].type == 'lava'){
@@ -593,10 +624,20 @@ $(document).ready(function(){
                 ctx.fillStyle = "rgb(0,0,0)";
             }else if(towers[i].type == 'hoverLeft'){
                 ctx.fillStyle = "rgb(25,25,25)";
+            }else if(towers[i].type == 'step'){
+                ctx.fillStyle = "rgb(25,125,125)";
             }else{
                 ctx.fillStyle = "rgb(50,50,50)";
             }
-            if( towers[i].type == 'trap' ){
+            
+            /** Draw Spape **/
+            if( towers[i].type == 'slope' ){
+                
+                ctx.fillStyle = "rgb(50,50,50)";
+                ctx.fillRect(towers[i].x,towers[i].y,towers[i].width,towers[i].height);
+                
+            }else if( towers[i].type == 'trap' ){
+                
             }else{
                 ctx.fillRect(towers[i].x,towers[i].y,towers[i].width,towers[i].height);
             }
