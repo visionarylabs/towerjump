@@ -9,8 +9,12 @@ http://dev.opalgames.com/games/towerjump
 * start blog article on opalgames.com
 
 * TODO:
+* * Fix level 8 and 9
+* * Level Edittor
 * * Make a Slope
-
+* * Fix slope to climb up / step slope / trig slope
+* * fix to make ridable blocks
+* * Make the You Win Screen
 ------------------------------------------------------------
 Reference Articles:
 	// http://www.lostdecadegames.com/how-to-make-a-simple-html5-canvas-game/

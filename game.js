@@ -13,6 +13,14 @@ var friction = .8; //.9
 var isBoss = false;
 
 var level = 0;
+var gameStatus = 0;
+
+var hero = {};
+var boss = {};
+var portal = {};
+
+//global funcs
+var reset = {};
 
 //towers
 var tower = function(width,height,x,y,type){
@@ -212,7 +220,7 @@ $(document).ready(function(){
     // Game objects
 
     //HERO
-    var hero = {
+    hero = {
         speed: 10, // movement in pixels per second
         width: 40,
         height: 40,
@@ -226,7 +234,7 @@ $(document).ready(function(){
     };
     
     //BOSS
-    var boss = {
+    boss = {
         speed: 10, // movement in pixels per second
         width: 200,
         height: 250,
@@ -241,7 +249,7 @@ $(document).ready(function(){
     };
 
     //PORTAL
-    var portal = {
+    portal = {
         x: 0,
         y: 0,
         speed: 5, // movement in pixels per second
@@ -252,7 +260,9 @@ $(document).ready(function(){
         force: 3.5
     };
 
+    //START THE GAME!
     level = 1;
+    gameStatus = 1;
 
     // Handle keyboard controls
     var keysDown = {};
@@ -268,8 +278,15 @@ $(document).ready(function(){
     }, false);
 
     // Reset the game when the player catches a portal
-    var reset = function () {
+    reset = function () {
+        
+        if( gameStatus == 2 ){
+            return;
+        }
+        
         // Throw the portal somewhere on the screen randomly
+        gameStatus = 1;
+        
         portal.x = 0 + (Math.random() * (canvas.width - 150));
         portal.y = 0 + (Math.random() * (canvas.height / 2 - 250));
         hero.x = 10;
@@ -292,7 +309,6 @@ $(document).ready(function(){
             test level
             width, height, x, y, type
         **/
-        
         makeLevels();
         
         console.log(towers);
@@ -340,6 +356,7 @@ $(document).ready(function(){
         // ESC KEY
         if (27 in keysDown) {
             level = 1;
+            gameStatus = 1;
             reset();
         }
 
@@ -395,8 +412,13 @@ $(document).ready(function(){
             && hero.y <= portal.y + portal.height
             //&& portal.y + portal.height <= hero.y
         ) {
-            console.log('next level!');
-            ++level;
+            if( level == 10 ){
+                console.log('you win!');
+                gameStatus = 2;
+            }else{
+                console.log('next level!');
+                ++level;
+            }
             reset();
         }
         
@@ -650,7 +672,13 @@ $(document).ready(function(){
         ctx.textBaseline = "top";
         //ctx.fillText("x: " + parseFloat(hero.x).toFixed(2) + " y: " + parseFloat(hero.y).toFixed(2), 10, 10);
         //ctx.fillText("velx: " + parseFloat(hero.velx).toFixed(2) + " vely: " + parseFloat(hero.vely).toFixed(2), 10, 30);
-        ctx.fillText("Level " + level , 10 , 10);
+        
+        if(gameStatus == 2){
+            ctx.fillText("YOU WIN!!!!!!!!!!!!!!!!!!!!!!!! ", 10 , 10);
+            ctx.fillText("Press ESC to Play Again??????", 10 , 500);
+        }else{
+            ctx.fillText("Level " + level , 10 , 10);
+        }
 
     };
 
