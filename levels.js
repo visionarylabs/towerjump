@@ -88,7 +88,8 @@ makeTower(50,10,250,500,'floating')
         makeTower(50,50,200,400,'lava');
         makeTower(400,10,0,680,'floor'); /* wide, high, left, top, every level needs a floor */
         makeTower(500,10,0,690,'lava'); /* lava pit */
-    }else if( level == 3 ){
+        //level8
+    }else if( level == 1 ){
         //Make Level
         makeTower(50,100,100,600,'fallable');
         makeTower(80,140,220,500,'fallable');
@@ -96,7 +97,12 @@ makeTower(50,10,250,500,'floating')
         makeTower(40,50,450,300,'fallable');
         makeTower(400,10,0,680,'floor'); /* floor */
         makeTower(500,10,0,690,'lava'); /* lava */
+        if(pro==1){
+            makeTower(100,300,400,340,'lava');
+        }
+
     }else if( level == 2 ){
+
         //Make Level
         makeTower(100,100,100,600,'fallable');
         makeTower(50,50,250,500,'floating');
@@ -106,10 +112,18 @@ makeTower(50,10,250,500,'floating')
         makeTower(50,50,0,320,'');
         makeTower(400,10,0,680,'floor'); /* floor */
         makeTower(500,10,0,690,'lava'); /* lava */
+        if(pro==1){
+            makeTower(60,20,250,250,'lava');
+        }
     }else{
         makeTower(80,40,220,600,'fallable');
         makeTower(80,40,320,500,'floating');
         makeTower(400,10,0,680,'floor'); /* floor */
         makeTower(500,10,0,690,'lava'); /* lava */
+        if(pro==1){
+            makeTower(60,40,330,400,'lava');
+        }
+        
     }
 }
+

@@ -8,9 +8,9 @@ http://dev.opalgames.com/games/towerjump
 * needs to be on opal2.0 to work
 * start blog article on opalgames.com
 
-* TODO:
-* * Fix level 8 and 9
-* * Level Edittor
+* TODO:                        
+* * Finish pro mode.         
+* * Level Editor                BUG INTANT DIEING
 * * Make a Slope
 * * Fix slope to climb up / step slope / trig slope
 * * fix to make ridable blocks

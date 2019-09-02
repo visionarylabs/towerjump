@@ -11,7 +11,7 @@
 var gravity = 0.35; //.35
 var friction = .8; //.9
 var isBoss = false;
-
+var pro = 0;
 var level = 0;
 var gameStatus = 0;
 
@@ -355,6 +355,10 @@ $(document).ready(function(){
 
         // ESC KEY
         if (27 in keysDown) {
+            if(gameStatus==2){
+                pro=1;
+            }
+            
             level = 1;
             gameStatus = 1;
             reset();
@@ -412,7 +416,7 @@ $(document).ready(function(){
             && hero.y <= portal.y + portal.height
             //&& portal.y + portal.height <= hero.y
         ) {
-            if( level == 10 ){
+            if( level == 1 ){
                 console.log('you win!');
                 gameStatus = 2;
             }else{
@@ -675,9 +679,14 @@ $(document).ready(function(){
         
         if(gameStatus == 2){
             ctx.fillText("YOU WIN!!!!!!!!!!!!!!!!!!!!!!!! ", 10 , 10);
-            ctx.fillText("Press ESC to Play Again??????", 10 , 500);
+            ctx.fillText("Press ESC to Play Again.", 10 , 500);
+            ctx.fillText("Pro mode?!?!?!", 10 , 520);
         }else{
-            ctx.fillText("Level " + level , 10 , 10);
+            if(pro==1){
+                ctx.fillText("Pro Level " + level , 10 , 10);
+            }else{
+                ctx.fillText("Level " + level , 10 , 10);
+            }
         }
 
     };
