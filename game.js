@@ -12,7 +12,9 @@ var friction = .8; //.9
 var isBoss = false;
 var pro = 0;
 var level = 0;
+var deaths = 0;
 var gameStatus = 0;
+var winLevel = 10; //the level you win at
 
 // Game Objects
 var hero = {};
@@ -283,13 +285,14 @@ $(document).ready(function(){
     // Reset the game when the player catches a portal
     reset = function () {
         
+        //if it's the winning screen dont reset
         if( gameStatus == 2 ){
             return;
         }
-        
-        // Throw the portal somewhere on the screen randomly
+        //reset everything
         gameStatus = 1;
         
+        // Throw the portal somewhere on the screen randomly
         portal.x = 0 + (Math.random() * (canvas.width - 150));
         portal.y = 0 + (Math.random() * (canvas.height / 2 - 250));
         hero.x = 10;
@@ -365,6 +368,7 @@ $(document).ready(function(){
             
             level = 1;
             gameStatus = 1;
+            deaths = 0;
             reset();
         }
 
@@ -420,13 +424,14 @@ $(document).ready(function(){
             && hero.y <= portal.y + portal.height
             //&& portal.y + portal.height <= hero.y
         ) {
-            if( level == 1 && pro == 0 ){
+            if( level == winLevel && pro == 0 ){
                 console.log('you win!');
                 gameStatus = 2;
             }else{
                 console.log('next level!');
                 ++level;
             }
+            //passed a level
             reset();
         }
         
@@ -437,6 +442,8 @@ $(document).ready(function(){
                 && boss.x + boss.width >= hero.x
                 && hero.y <= boss.y + boss.height
             ) {
+                //died to boss
+                deaths++;
                 reset();
             }
         }
@@ -465,6 +472,7 @@ $(document).ready(function(){
             //if you hit any side do this:
             if (dir === "l" || dir === "r" || dir === "t" || dir === "b") {
                 if(towers[i].type == 'lava'){
+                    deaths++;
                     reset();
                 }
             }
@@ -692,6 +700,7 @@ $(document).ready(function(){
             }else{
                 ctx.fillText("Level " + level , 10 , 10);
             }
+            ctx.fillText("Deaths: " + deaths , 100 , 10);
         }
 
     };
