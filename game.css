@@ -3,6 +3,7 @@ body{
 	padding: 0;
 	text-align: center;
 	background: #000;
+	color: #666;
 }
 #game-canvas{
 	width: 100%;
@@ -43,39 +44,6 @@ body{
 	top: auto;
 	margin: 0;
 	
-}
-
-.interface{
-    background: rgba(155,0,0,.4);
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    display: none;
-}
-.interface .button{
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,155,0,.4);
-}
-.interface .button.left{
-    width: 50%;
-    height: 80%;
-    bottom: 30%;
-    background: rgba(0,0,155,.4);
-}
-.interface .button.right{
-    width: 50%;
-    height: 80%;
-    bottom: 30%;
-    background: rgba(155,155,0,.4);
-}
-.interface .button.jump{
-    height: 30%;
 }
 
 @media (min-width: 500px) {

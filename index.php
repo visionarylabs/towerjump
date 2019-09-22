@@ -10,20 +10,15 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<link rel="stylesheet" type="text/css" href="game.css?t=4" media="all" />
 		<script type='text/javascript' src='/scripts/tools/jquery.js'></script>
-		<script src="tools/hammer.min.js"></script>
-		<script src="tools/hammer-time.min.js"></script>
 		<script src="levels.js?t=9"></script>
+		<script src="level-builder.js?t=9"></script>
 		<script src="game.js?t=9"></script>
 	</head>
 	<body>
 		<div class="game-area" id="game-area">
 			<div class="info"></div>
 			<canvas id="game-canvas"></canvas>
-			<div class="interface">
-    			<div class="button left"></div>
-    			<div class="button right"></div>
-    			<div class="button jump"></div>
-			</div>
 		</div>
+		<p>Welcome to Tower Jump!</p>
 	</body>
 </html>

@@ -16,7 +16,6 @@ var makeLevels = function(){
         //test lvel
         console.log("Does this work?");
         
-        
         makeTower(100,300,100,300,'slope'); /* slope */
         
         makeTower(400,10,0,680,'floor'); /* floor */
@@ -44,7 +43,7 @@ var makeLevels = function(){
         //level8
     
    }else if( level == 8 ){
-makeTower(50,10,250,500,'floating')
+        makeTower(50,10,250,500,'floating');
         makeTower(100,300,450,300,'slope'); /* slope */
         
         makeTower(400,10,0,500,'floor'); /* floor */
@@ -89,7 +88,7 @@ makeTower(50,10,250,500,'floating')
         makeTower(400,10,0,680,'floor'); /* wide, high, left, top, every level needs a floor */
         makeTower(500,10,0,690,'lava'); /* lava pit */
         //level8
-    }else if( level == 1 ){
+    }else if( level == 1){
         //Make Level
         makeTower(50,100,100,600,'fallable');
         makeTower(80,140,220,500,'fallable');
@@ -100,6 +99,19 @@ makeTower(50,10,250,500,'floating')
         if(pro==1){
             makeTower(100,300,400,340,'lava');
         }
+    }else if( level == 1000 ){
+        makeTower(20,700,480,0)
+       makeTower(20,700,480,0)
+        makeTower(20,700,480,0)
+        makeTower(20,700,480,0)
+        makeTower(20,700,480,0)
+        makeTower(20,700,480,0)
+        makeTower(20,700,480,0)
+        makeTower(20,700,480,0)
+        makeTower(20,700,480,0)
+        makeTower(20,700,480,0)
+        makeTower(400,10,0,680,'floor'); /* floor */
+        makeTower(500,10,0,690,'lava'); /* lava */
 
     }else if( level == 2 ){
 

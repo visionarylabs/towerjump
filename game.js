@@ -6,7 +6,6 @@
     https://docs.google.com/document/d/1lA0bT0W_RHqEa8iUSYb6rAPabvGB_kLG1PlRA23GdVM
 **/
 
-/** GLOBAL VARS **/
 // Game Constants
 var gravity = 0.35; //.35
 var friction = .8; //.9
@@ -15,9 +14,14 @@ var pro = 0;
 var level = 0;
 var gameStatus = 0;
 
+// Game Objects
 var hero = {};
 var boss = {};
 var portal = {};
+
+//global vars
+var w = window;
+var mouse = {x:0,y:0};
 
 //global funcs
 var reset = {};
@@ -101,46 +105,45 @@ $(document).ready(function(){
     //var canvas = document.createElement("canvas");
     var canvas = document.getElementById('game-canvas');
     var ctx = canvas.getContext("2d");
-    var touchable = 'createTouch' in document;
-    var mouseX, mouseY, touches = []; // array of touch vectors
 
     canvas.width = 500;
     canvas.height = 700;
     canvas.id = 'game-canvas';
+
+    //PLAYER CONTROLLER
+    canvas.addEventListener('mousemove', function(e) {
+        mouse = getMousePos(canvas,e);
+    });
     
-    hammerBind('.button.jump','heroJump'); //main toggle hamburger nav
-
-    // Game Controller
-    if(touchable) {
-        canvas.addEventListener( 'touchstart', onTouchStart, false );
-        canvas.addEventListener( 'touchmove', onTouchMove, false );
-        canvas.addEventListener( 'touchend', onTouchEnd, false );
-    } else {
-        canvas.addEventListener( 'mousemove', onMouseMove, false );
+    canvas.addEventListener('mouseout', function(e) {
+        mouse = {x:-1,y:-1};
+    });
+    
+    canvas.addEventListener('click', function(e) {
+        click = getMousePos(canvas,e);
+        processClick(click);
+    });
+    
+    function getMousePos(canvas,e) {
+        var rect = canvas.getBoundingClientRect();
+        return {
+          x: Math.floor(e.clientX - rect.left),
+          y: Math.floor(e.clientY - rect.top)
+        };
     }
-
-    function onTouchStart(e) {
-        //touch
-        //jump
-        touches = e.touches.target;
-        var t = $(touches);
-        if( t.hasClass('jump') ){
+    
+    function processClick(click){
+        console.log(click);
+        if( click.y > canvas.height / 2 ){
+            console.log('jump');
+            console.log('jumping? ' + hero.jumping);
+            console.log('grounded? ' + hero.grounded);
             heroJump();
+        }else if(click.x > canvas.width / 2 ){
+            hero.x += 5;
+        }else if(click.x < canvas.width / 2 ){
+            hero.x -= 5;
         }
-    }
-
-    function onTouchMove(e) {
-        event.preventDefault();
-        touches = e.touches;
-    }
-
-    function onTouchEnd(e) {
-        //stoptouch
-        touches = e.touches;
-    }
-    function onMouseMove(e) {
-        mouseX = e.offsetX;
-        mouseY = e.offsetY;
     }
 
 
@@ -323,6 +326,7 @@ $(document).ready(function(){
         if (!hero.jumping && hero.grounded) {
             hero.jumping = true;
             hero.grounded = false; // We're not on the ground anymore!!
+            hero.y = hero.y + 1;
             hero.vely = -hero.speed * 1;
         }
     }
@@ -416,7 +420,7 @@ $(document).ready(function(){
             && hero.y <= portal.y + portal.height
             //&& portal.y + portal.height <= hero.y
         ) {
-            if( level == 1 ){
+            if( level == 1 && pro == 0 ){
                 console.log('you win!');
                 gameStatus = 2;
             }else{
@@ -468,6 +472,7 @@ $(document).ready(function(){
                 hero.velx = 0;
                 hero.jumping = false;
             } else if (dir === "b") { //if the hero lands on top
+                console.log('grounding the hero...');
                 hero.grounded = true;
                 hero.jumping = false;
                 if(towers[i].type == 'trapLeft'){
@@ -724,21 +729,6 @@ $(document).ready(function(){
         }
     }
     */
-    
-    //initiate hammer tap on cards
-    //HAMMER BIND
-    function hammerBind(selector,functionName){
-        $(selector).each(function(){
-            var mc = new Hammer(this);
-            var clicked = this;
-            var elem = $(this);
-            mc.on("tap", function(e) {
-                if(e){ e.preventDefault(); }
-                //window[functionName](elem,e);
-                return;
-            });
-        });
-    }
 
     //JS game resize for full screen
     function resizeGame() {
