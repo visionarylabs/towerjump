@@ -20,5 +20,6 @@
 			<canvas id="game-canvas"></canvas>
 		</div>
 		<p>Welcome to Tower Jump!</p>
+        <?php include_once('../../lib/includes/opalgames-footer.php'); ?>
 	</body>
 </html>

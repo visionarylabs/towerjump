@@ -25,6 +25,14 @@ var makeLevels = function(){
             makeTower(500,10,0,690,'lava'); /* lava */
         break;
         case 1:
+            makeTower(50,100,100,600,'');
+            makeTower(80,140,220,500,'');
+            makeTower(100,50,370,400,'');
+            makeTower(40,50,450,300,'');
+            makeTower(400,10,0,680,'floor'); /* floor */
+            makeTower(500,10,0,690,'lava'); /* lava */
+        break;
+        case 2:
             makeTower(50,100,100,600,'fallable');
             makeTower(80,140,220,500,'fallable');
             makeTower(100,50,370,400,'fallable');
@@ -35,7 +43,7 @@ var makeLevels = function(){
                 makeTower(100,300,400,340,'lava');
             }
         break;
-        case 2:
+        case 3:
             makeTower(100,100,100,600,'fallable');
             makeTower(50,50,250,500,'floating');
             makeTower(130,50,100,350,'');
@@ -47,14 +55,6 @@ var makeLevels = function(){
             if(pro==1){
                 makeTower(60,20,250,250,'lava');
             }
-        break;
-        case 3:
-            makeTower(50,100,100,600,'fallable');
-            makeTower(80,140,220,500,'fallable');
-            makeTower(100,50,370,400,'fallable');
-            makeTower(40,50,450,300,'fallable');
-            makeTower(400,10,0,680,'floor'); /* floor */
-            makeTower(500,10,0,690,'lava'); /* lava */
         break;
         case 4:
             makeTower(50,100,250,600,'fallable');

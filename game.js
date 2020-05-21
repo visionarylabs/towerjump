@@ -227,6 +227,10 @@ $(document).ready(function(){
     //HERO
     hero = {
         speed: 10, // movement in pixels per second
+        jumpspeed: 5,
+        maxjump: 100,
+        curjump: 0,
+        takeoff: 0,
         width: 40,
         height: 40,
         velx: 0,
@@ -326,11 +330,21 @@ $(document).ready(function(){
     };
 
     function heroJump(){
-        if (!hero.jumping && hero.grounded) {
+        if (hero.grounded) {
+            hero.takeoff = hero.y;
+        }
+        
+        if (hero.curjump <  hero.maxjump) {
+        //if (hero.grounded == true && hero.jumping == false) {
+            hero.curjump =  hero.takeoff - hero.y;
+            
             hero.jumping = true;
             hero.grounded = false; // We're not on the ground anymore!!
-            hero.y = hero.y + 1;
-            hero.vely = -hero.speed * 1;
+            //hero.y = hero.y + 1;
+            hero.vely = -hero.jumpspeed * 1;
+            console.log(hero.curjump);
+            console.log(hero.maxjump);
+            console.log(hero.takeoff);
         }
     }
 
@@ -480,9 +494,13 @@ $(document).ready(function(){
                 hero.velx = 0;
                 hero.jumping = false;
             } else if (dir === "b") { //if the hero lands on top
-                console.log('grounding the hero...');
+                //console.log('grounding the hero...');
+                
                 hero.grounded = true;
                 hero.jumping = false;
+                hero.curjump = 0;
+                hero.takeoff = 0;
+                
                 if(towers[i].type == 'trapLeft'){
                     towers[i].hoverLeft = true;
                 }
@@ -700,7 +718,7 @@ $(document).ready(function(){
             }else{
                 ctx.fillText("Level " + level , 10 , 10);
             }
-            ctx.fillText("Deaths: " + deaths , 100 , 10);
+            ctx.fillText("Deaths: " + deaths , 120 , 10);
         }
 
     };
