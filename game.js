@@ -227,10 +227,6 @@ $(document).ready(function(){
     //HERO
     hero = {
         speed: 10, // movement in pixels per second
-        jumpspeed: 5,
-        maxjump: 100,
-        curjump: 0,
-        takeoff: 0,
         width: 40,
         height: 40,
         velx: 0,
@@ -330,21 +326,11 @@ $(document).ready(function(){
     };
 
     function heroJump(){
-        if (hero.grounded) {
-            hero.takeoff = hero.y;
-        }
-        
-        if (hero.curjump <  hero.maxjump) {
-        //if (hero.grounded == true && hero.jumping == false) {
-            hero.curjump =  hero.takeoff - hero.y;
-            
+        if (hero.grounded == true && hero.jumping == false) {
             hero.jumping = true;
             hero.grounded = false; // We're not on the ground anymore!!
-            //hero.y = hero.y + 1;
-            hero.vely = -hero.jumpspeed * 1;
-            console.log(hero.curjump);
-            console.log(hero.maxjump);
-            console.log(hero.takeoff);
+            hero.y = hero.y + 1;
+            hero.vely = -hero.speed * 1;
         }
     }
 
@@ -498,8 +484,6 @@ $(document).ready(function(){
                 
                 hero.grounded = true;
                 hero.jumping = false;
-                hero.curjump = 0;
-                hero.takeoff = 0;
                 
                 if(towers[i].type == 'trapLeft'){
                     towers[i].hoverLeft = true;
