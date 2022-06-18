@@ -1,12 +1,15 @@
-------------------------------------------------------------
 # Tower Jump
 ## HTML5 / JavaScript Platformer Web-Game Demo
-@author Ben Borkowski - Developer
-@author Lengley Rowland - Game Design / Level Design
-@publisher Opal Games
-@website https://opalgames.com/games/towerjump
-@source https://github.com/visionarylabs/towerjump
-------------------------------------------------------------
+
+### Authors
+- Ben Borkowski - Developer
+- Lengley Rowland - Game Design / Level Design
+
+### publisher
+- Opal Games
+- https://opalgames.com/games/towerjump
+- https://github.com/visionarylabs/towerjump
+-----
 ## TODO
 * needs to be on opal2.0 to work
 * start blog article on opalgames.com
@@ -17,7 +20,7 @@
 * Fix slope to climb up / step slope / trig slope
 * fix to make ridable blocks
 * Make the You Win Screen
-------------------------------------------------------------
+-----
 ## Reference Articles
 * http://www.lostdecadegames.com/how-to-make-a-simple-html5-canvas-game/
 * http://www.html5rocks.com/en/tutorials/casestudies/onslaught/#toc-the-game-loop
@@ -28,4 +31,3 @@
 * http://www.nathalielawhead.com/candybox/html5-game-tutorial-making-a-platformer-part-1
 * http://blog.sklambert.com/html5-game-tutorial-module-pattern/
 * http://blog.sklambert.com/galaxian-html5-game/
-------------------------------------------------------------
