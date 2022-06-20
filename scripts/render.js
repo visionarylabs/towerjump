@@ -50,11 +50,14 @@ var render = function () {
     }
     
     if (heroReady) {
-        ctx.drawImage(heroImage, hero.x, hero.y);
+        ctx.drawImage(heroImage, hero.x, hero.y, hero.width, hero.height);
+        //hero block:
+        //ctx.fillStyle = "rgb(150,50,50)";
+        //ctx.fillRect(hero.x,hero.y,hero.width,hero.height);
     }
 
     if (portalReady) {
-        ctx.drawImage(portalImage, portal.x, portal.y);
+        ctx.drawImage(portalImage, portal.x, portal.y, portal.width, portal.height);
     }
 
     //controller

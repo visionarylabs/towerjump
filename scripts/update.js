@@ -73,11 +73,11 @@ var update = function (modifier) {
         if(boss.x < 0){
             boss.velx = 1;
         }
-        boss.x += boss.velx;
+        boss.x += boss.velx * scale;
     }
 
     //move the portal
-    portal.x += portal.speed * portal.force;
+    portal.x += portal.speed * portal.force * scale;
     
 
     //change the portal{
@@ -120,15 +120,15 @@ var update = function (modifier) {
     }
 
     // stop hero on screen edge
-    if (hero.x >= canvas.width - heroImage.width) {
-        hero.x = canvas.width - heroImage.width;
+    if (hero.x >= canvas.width - hero.width) {
+        hero.x = canvas.width - hero.width;
     }else if (hero.x <= 0) {
         hero.x = 0;
     }
 
     // stop hero on the floor
-    if (hero.y >= canvas.height - heroImage.height) {
-        hero.y = canvas.height - heroImage.height;
+    if (hero.y >= canvas.height - hero.height) {
+        hero.y = canvas.height - hero.height;
         hero.vely = 0;
     }else if (hero.y <= 0) {
         hero.y = 0;
@@ -181,16 +181,16 @@ var update = function (modifier) {
         }
 
         if( towers[i].hoverRight == true ){
-            towers[i].x += 2;
+            towers[i].x += 2 * scale;
         }
         if( towers[i].hoverLeft == true ){
-            towers[i].x -= 2;
+            towers[i].x -= 2 * scale;
         }
         if( towers[i].falling == true ){
-            towers[i].y += 1;
+            towers[i].y += 1 * scale;
         }
         if( towers[i].floating == true ){
-            towers[i].y -= 1;
+            towers[i].y -= 1 * scale;
         }
 
     }
@@ -199,8 +199,8 @@ var update = function (modifier) {
         hero.vely = 0;
     }
 
-    hero.x += hero.velx;
-    hero.y += hero.vely;
+    hero.x += hero.velx * scale;
+    hero.y += hero.vely * scale;
 
 };
 

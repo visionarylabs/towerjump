@@ -51,7 +51,7 @@ reset = function () {
     
     // Throw the portal somewhere on the screen randomly
     portal.x = 0 + (Math.random() * (canvas.width - 150));
-    portal.y = 0 + (Math.random() * (canvas.height / 2 - 250));
+    portal.y = 10;
     hero.x = 10;
     hero.y = 600;
     hero.velx = 0;
@@ -153,6 +153,13 @@ var towers = new Array();
 
 var makeTower = function(width,height,x,y,type){
     var temp = null;
+
+    //scale to screen
+    width = width * scale;
+    height = height * scale;
+    x = x * scale;
+    y = y * scale;
+
     if( type == 'trap' ){
         var width2 = width / 2;
         var type1 = 'trapLeft';
@@ -233,9 +240,14 @@ function restoreState() {
 //JS game resize for full screen
 function resizeGame() {
     var gameArea = document.getElementById('game-area');
-    var widthToHeight = 3 / 2;
-    var newWidth = window.innerWidth;
-    var newHeight = window.innerHeight;
+    var widthToHeight = 5 / 7;
+    var maxWidth = window.innerWidth;
+    var maxHeight = window.innerHeight;
+    var newWidth = gameWidth;
+    var newHeight = gameHeight;
+    if(maxWidth < gameWidth) newWidth = maxWidth;
+    if(maxHeight < gameHeight) newHeight = maxHeight;
+
     var newWidthToHeight = newWidth / newHeight;
 
     if (newWidthToHeight > widthToHeight) {
@@ -249,16 +261,29 @@ function resizeGame() {
         gameArea.style.height = newHeight + 'px';
     }
 
-    gameArea.style.marginTop = (-newHeight / 2) + 'px';
-    gameArea.style.marginLeft = (-newWidth / 2) + 'px';
+    //gameArea.style.marginTop = (-newHeight / 2) + 'px';
+    //gameArea.style.marginLeft = (-newWidth / 2) + 'px';
     gameArea.style.fontSize = (newWidth / 400) + 'em';
 
     canvas.width = newWidth;
     canvas.height = newHeight;
+    console.log('GAME AREA:')
+    console.log(newWidth , newHeight);
+    //set global scale for UI
+    scale = newWidth / gameWidth;
+    console.log('SCALE:')
+    console.log(scale);
+    //more resize:
+    portal.width = portal.width * scale;
+    portal.height = portal.height * scale;
+    hero.width = hero.width * scale;
+    hero.height = hero.height * scale;
+    console.log('HERO:')
+    console.log(hero);
 }
-//resizeGame();
-//window.addEventListener('resize', resizeGame, false);
-//window.addEventListener('orientationchange', resizeGame, false);
+resizeGame();
+window.addEventListener('resize', resizeGame, false);
+window.addEventListener('orientationchange', resizeGame, false);
 //END JS RESIZE
 
 // Let's play this game!

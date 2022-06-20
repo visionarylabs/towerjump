@@ -3,12 +3,17 @@
 **/
 
 /*create the canvas*/
+//UI Defaults
+var scale = 1;
+var gameWidth = 500;
+var gameHeight = 700;
+
 //var canvas = document.createElement("canvas");
 var canvas = document.getElementById('game-canvas');
 var ctx = canvas.getContext("2d");
 
-canvas.width = 500;
-canvas.height = 700;
+canvas.width = gameWidth;
+canvas.height = gameHeight;
 canvas.id = 'game-canvas';
 
 //Images // Sprites
@@ -129,9 +134,9 @@ function processClick(click){
         console.log('grounded? ' + hero.grounded);
         heroJump();
     }else if(click.x > canvas.width / 2 ){
-        hero.x += 5;
+        hero.x += 5 * scale;
     }else if(click.x < canvas.width / 2 ){
-        hero.x -= 5;
+        hero.x -= 5 * scale;
     }
 }
 
