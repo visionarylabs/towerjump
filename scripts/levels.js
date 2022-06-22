@@ -13,7 +13,7 @@ var makeLevels = function(){
     isBoss = false;
     switch(level){
         case 10:
-            isBoss = true;
+            //isBoss = true;
         break;
     }
     
@@ -101,10 +101,9 @@ var makeLevels = function(){
             makeTower(98,40,61,496,'lava');
             makeTower(10,10,255,365,'floating');
             makeTower(100,50,60,495,'floating');
-            makeTower(100,50,250,590,'lava');
-            makeTower(35,100,250,558,'lava');
+            makeTower(35,100,250,560,'lava'); //tall block
             makeTower(90,50,255,585,'');
-            makeTower(105,50,405,485,'');
+            makeTower(105,50,405,485,''); //top platform
             makeTower(100,50,400,490,'lava');
             makeTower(400,10,0,680,'floor'); /* floor */
             makeTower(500,10,0,690,'lava'); /* lava */

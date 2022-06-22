@@ -87,6 +87,7 @@ reset = function () {
 //HERO
 hero = {
     speed: 10, // movement in pixels per second
+    base: 40,
     width: 40,
     height: 40,
     velx: 0,
@@ -96,6 +97,19 @@ hero = {
     jumping : false,
     grounded : false,
     goingup : false
+};
+
+//PORTAL
+portal = {
+    x: 0,
+    y: 0,
+    speed: 5, // movement in pixels per second
+    base: 150,
+    width: 150,
+    height: 150,
+    velx: 0,
+    vely: 0,
+    force: 3.5
 };
 
 //BOSS
@@ -113,22 +127,11 @@ boss = {
     goingup : false
 };
 
-//PORTAL
-portal = {
-    x: 0,
-    y: 0,
-    speed: 5, // movement in pixels per second
-    width: 150,
-    height: 150,
-    velx: 0,
-    vely: 0,
-    force: 3.5
-};
-
 //GAME FACTORIES
 
 //towers
 var tower = function(width,height,x,y,type){
+    
     var width = width;
     var height = height;
     var x = x;
@@ -140,10 +143,14 @@ var tower = function(width,height,x,y,type){
     var hoverRight = false;
     var hoverLeft = false;
     return{
-        width: width,
-        height: height,
-        x: x,
-        y: y,
+        width: width * scale,
+        height: height * scale,
+        baseWidth : width,
+        baseHeight : height,
+        x: x * scale,
+        y: y * scale,
+        baseX : x,
+        baseY : y,
         type: type,
         falling: falling,
         floating: floating
@@ -153,12 +160,6 @@ var towers = new Array();
 
 var makeTower = function(width,height,x,y,type){
     var temp = null;
-
-    //scale to screen
-    width = width * scale;
-    height = height * scale;
-    x = x * scale;
-    y = y * scale;
 
     if( type == 'trap' ){
         var width2 = width / 2;
@@ -269,17 +270,29 @@ function resizeGame() {
     canvas.height = newHeight;
     console.log('GAME AREA:')
     console.log(newWidth , newHeight);
+
     //set global scale for UI
     scale = newWidth / gameWidth;
     console.log('SCALE:')
     console.log(scale);
+
     //more resize:
-    portal.width = portal.width * scale;
-    portal.height = portal.height * scale;
-    hero.width = hero.width * scale;
-    hero.height = hero.height * scale;
+    portal.width = portal.base * scale;
+    portal.height = portal.base * scale;
+    hero.width = hero.base * scale;
+    hero.height = hero.base * scale;
+
     console.log('HERO:')
     console.log(hero);
+
+    var i = 0;
+    for(i=0;i<towers.length;i++){
+        towers[i].width = towers[i].baseWidth * scale;
+        towers[i].height = towers[i].baseHeight * scale;
+        towers[i].x = towers[i].baseX * scale;
+        towers[i].y = towers[i].baseY * scale;
+    }
+
 }
 resizeGame();
 window.addEventListener('resize', resizeGame, false);

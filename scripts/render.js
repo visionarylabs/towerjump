@@ -121,8 +121,9 @@ var render = function () {
     }
 
     // Score
+    var fontSize = 18 * scale;
     ctx.fillStyle = "rgb(10, 10, 10)";
-    ctx.font = "18px Helvetica";
+    ctx.font = fontSize + "px Helvetica";
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
     //ctx.fillText("x: " + parseFloat(hero.x).toFixed(2) + " y: " + parseFloat(hero.y).toFixed(2), 10, 10);
