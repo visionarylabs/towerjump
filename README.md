@@ -1,5 +1,6 @@
 # Tower Jump
 ## HTML5 / JavaScript Platformer Web-Game Demo
+v 2.0
 
 ### Authors
 - Ben Borkowski - Developer
@@ -20,6 +21,10 @@
 * Fix slope to climb up / step slope / trig slope
 * fix to make ridable blocks
 * Make the You Win Screen
+-----
+## JS
+* index loads game.js
+* game.js loads
 -----
 ## Reference Articles
 * http://www.lostdecadegames.com/how-to-make-a-simple-html5-canvas-game/
