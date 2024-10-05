@@ -11,24 +11,14 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <link rel="stylesheet" type="text/css" href="game.css?t=4" media="all" />
-
-        <script src="scripts/levels.js?t=10"></script>
-        <script src="scripts/level-builder.js?t=10"></script>
-        <script src="scripts/render.js?t=10"></script>
-        <script src="scripts/update.js?t=10"></script>
-
+        <script type="module" src="game.js"></script>
     </head>
     <body>
         <div class="game-area" id="game-area">
             <div class="info"></div>
             <canvas id="game-canvas"></canvas>
         </div>
-
         <p>Welcome to Tower Jump!</p>
         <?php include_once('../../lib/includes/opalgames-footer.php'); ?>
-
-        <script src="scripts/ui.js?t=10"></script>
-        <script src="game.js?t=10"></script>
-
     </body>
 </html>
